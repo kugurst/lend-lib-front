@@ -1,19 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="oracle.jdbc.pool.OracleDataSource"%>
 <!-- Getting the username and the password that was submitted -->
 <%
+	// Get the user info
 	String name = request.getParameter("username");
 	String pass = request.getParameter("password");
-	session.setAttribute("sname", name);
-	session.setAttribute("spass", pass);
+
+	// Check to see if their credentials align with a user in person	
+	Connection conn = null;
+	ResultSet rset = null;
+	try {
+		OracleDataSource ods = new OracleDataSource();
+		ods.setURL("jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB");
+		conn = ods.getConnection();
+		Statement stmt = conn.createStatement();
+		rset = stmt
+				.executeQuery("select USERID from PERSON P where P.UNAME='"
+						+ name + "' and P.PASSWORD='" + pass + "'");
+		// If there is no result, then this user is not registered
+		if (rset.next())
+			session.setAttribute("sname", name);
+		else
+			session.setAttribute("sname", null);
+	} catch (SQLException e) {
+		out.print(e.getMessage());
+		if (conn != null) {
+			conn.close();
+		}
+	} finally {
+		if (conn != null)
+			conn.close();
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Redirecting...</title>
+<title>Home</title>
 </head>
 <body>
-	<a href="NextPage.jsp">Continue</a>
+	<p>
+		Successfully logged in:
+		<%
+		Object sname = session.getAttribute("sname");
+		if (sname != null)
+			out.print(sname);
+	%>
+	</p>
 </body>
 </html>
