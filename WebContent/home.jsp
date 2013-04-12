@@ -25,12 +25,11 @@
 			// If there is no result, then this user is not registered
 			if (rset.next()) {
 				session.setAttribute("sname", name);
-				session.setAttribute("suid", rset.getString("USERID"));
-			}
-			else
+				session.setAttribute("suid", rset.getInt("USERID"));
+			} else
 				session.setAttribute("sname", null);
 		} catch (SQLException e) {
-			out.print(e.getMessage());
+			System.out.print(e.getMessage());
 			if (conn != null) {
 				conn.close();
 			}
@@ -53,6 +52,8 @@
 		sname = session.getAttribute("sname");
 		if (sname != null)
 			out.print(sname);
+		else
+			response.sendRedirect(request.getHeader("referer"));
 	%>
 	</p>
 </body>

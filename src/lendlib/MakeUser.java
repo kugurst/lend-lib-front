@@ -23,7 +23,6 @@ import oracle.jdbc.pool.OracleDataSource;
 public class MakeUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String connect_string = "jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB";
-	private Connection conn;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -43,27 +42,14 @@ public class MakeUser extends HttpServlet {
 		response.setContentType("text/html");
 		// Create a OracleDataSource instance and set URL if it doesn't already
 		// exist
-		if (conn == null) {
-			OracleDataSource ods;
-			try {
-				ods = new OracleDataSource();
-				ods.setURL(connect_string);
-				conn = ods.getConnection();
-			} catch (SQLException e) {
-				out.println(e.getMessage());
-				closeConn(conn, out);
-				return;
-			}
-		}
-		// If the connection is closed, open it again.
+		Connection conn = null;
+		OracleDataSource ods;
 		try {
-			if (conn.isClosed()) {
-				OracleDataSource ods = new OracleDataSource();
-				ods.setURL(connect_string);
-				conn = ods.getConnection();
-			}
-		} catch (SQLException e1) {
-			out.println(e1.getMessage());
+			ods = new OracleDataSource();
+			ods.setURL(connect_string);
+			conn = ods.getConnection();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			closeConn(conn, out);
 			return;
 		}
@@ -83,33 +69,27 @@ public class MakeUser extends HttpServlet {
 				response.sendRedirect("signup.jsp");
 				return;
 			}
-			stmt.close();
 		} catch (SQLException e) {
-			out.println(e.getMessage());
+			System.out.println(e.getMessage());
 			closeConn(conn, out);
 			return;
 		}
 		// If we're here, then the user didn't exist, so let's make it.
-		boolean made = makeuser(request, out);
+		Boolean made = false;
+		Integer uid = null;
+		try {
+			uid = makeuser(request, out, stmt);
+			made = true;
+		} catch (SQLException e1) {
+			// Let's defer returning until we check the status of made
+			System.out.println(e1.getMessage());
+		}
 		// If the user was made, let's go to home.jsp
 		if (made) {
+			// Set the session variables
 			HttpSession session = request.getSession(true);
 			session.setAttribute("sname", request.getParameter("uname"));
-			// Get the user id
-			try {
-				stmt = conn.createStatement();
-				ResultSet rset = stmt
-						.executeQuery("select USERID from PERSON where PERSON.UNAME='"
-								+ name + "'");
-				if (rset.next()) {
-					Integer uid = rset.getInt(1);
-					session.setAttribute("suid", uid);
-				}
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				closeConn(conn, out);
-				return;
-			}
+			session.setAttribute("suid", uid);
 			// Go to the home page if successful with the new credentials
 			closeConn(conn, out);
 			response.sendRedirect("home.jsp");
@@ -124,14 +104,20 @@ public class MakeUser extends HttpServlet {
 	public static void closeConn(Connection conn, PrintWriter out) {
 		if (conn != null) {
 			try {
+				conn.commit();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			try {
 				conn.close();
 			} catch (SQLException e) {
-				out.println(e.getMessage());
+				System.out.println(e.getMessage());
 			}
 		}
 	}
 
-	private boolean makeuser(HttpServletRequest request, PrintWriter out) {
+	private int makeuser(HttpServletRequest request, PrintWriter out,
+			Statement stmt) throws SQLException {
 		// Format the query
 		String query = "insert into PERSON (uname, name, state, password, city, country) VALUES ('"
 				+ request.getParameter("uname")
@@ -145,17 +131,15 @@ public class MakeUser extends HttpServlet {
 				+ request.getParameter("city")
 				+ "', '"
 				+ request.getParameter("country") + "')";
-		// Make a statement to execute the query
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(query);
-			stmt.close();
-			conn.commit();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return false;
-		}
-		return true;
+		// execute the query
+		stmt.executeUpdate(query);
+		// Get the generated ID of the user
+		ResultSet rset = stmt
+				.executeQuery("select USERID from PERSON where PERSON.UNAME='"
+						+ request.getParameter("uname") + "'");
+		rset.next();
+		int id = rset.getInt(1);
+		return id;
 	}
 
 	/**

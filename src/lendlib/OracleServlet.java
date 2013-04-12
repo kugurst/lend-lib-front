@@ -22,7 +22,6 @@ import oracle.jdbc.pool.OracleDataSource;
 public class OracleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String connect_string = "jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB";
-	private Connection conn;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,15 +39,10 @@ public class OracleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = new PrintWriter(response.getOutputStream());
+		Connection conn = null;
 		try {
 			if (conn == null) {
 				// Create a OracleDataSource instance and set URL
-				OracleDataSource ods = new OracleDataSource();
-				ods.setURL(connect_string);
-				conn = ods.getConnection();
-			}
-			// If the connection is closed, open it again.
-			if (conn.isClosed()) {
 				OracleDataSource ods = new OracleDataSource();
 				ods.setURL(connect_string);
 				conn = ods.getConnection();
