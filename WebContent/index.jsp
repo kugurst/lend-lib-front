@@ -7,6 +7,13 @@
 <title>Lib: Share</title>
 </head>
 <body>
+	<%
+		Object logout = session.getAttribute("logout");
+		if (logout != null) {
+			out.println("<p>Logged out successfully.</p>");
+			session.setAttribute("logout", null);
+		}
+	%>
 	<h1>Lib: Share</h1>
 	<h3>The peer to peer library.</h3>
 	<p>
