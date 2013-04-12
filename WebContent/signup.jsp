@@ -5,10 +5,17 @@
 <head>
 <script type="text/javascript">
 	function validateForm() {
+		// Checking to make sure that the passwords match
 		var pass = document.forms["reg"]["password"].value;
 		var vpass = document.forms["reg"]["vpassword"].value;
 		if (pass != vpass) {
 			alert("Your passwords do not match!");
+			return false;
+		}
+		// Checking to make sure they gave a country
+		var country = document.forms["reg"]["country"].value;
+		if (country == "") {
+			alert("Please select a country!");
 			return false;
 		}
 	}
@@ -33,15 +40,15 @@
 		</p>
 		<p>
 			Choose your display name: <input type="text" name="dispname"
-				size="20" maxlength="50" required>
+				size="20" maxlength="100" required>
 		</p>
 		<p>
 			What city do you live in: <input type="text" name="city" size="20"
 				maxlength="25" required>
 		</p>
 		<p>
-			What state/region do you live in: <input type="text" name="state" size="2"
-				maxlength="2" required>
+			What state/region do you live in: <input type="text" name="state"
+				size="2" maxlength="2" required>
 		</p>
 		<p>
 			What country do you live in: <select name="country">
@@ -302,7 +309,7 @@
 				<option value="Zimbabwe">Zimbabwe</option>
 			</select>
 		</p>
-		<input type=submit>
+		<input type="submit">
 	</form>
 </body>
 </html>

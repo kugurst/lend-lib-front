@@ -4,8 +4,10 @@
 <%
 	Object sname = session.getAttribute("sname");
 	// There is a session currently in process, redirect to home.jsp
-	if (sname != null)
+	if (sname != null) {
 		response.sendRedirect("home.jsp");
+		return;
+	}
 %>
 
 <!DOCTYPE html>
