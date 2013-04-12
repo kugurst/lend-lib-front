@@ -4,6 +4,10 @@
 <html>
 <head>
 <script type="text/javascript">
+	
+<%String refer = request.getHeader("referer");
+			if (refer.endsWith("lendinglibrary/makeuser"))
+				out.println("alert(\"Error, the username is already taken.\");");%>
 	function validateForm() {
 		// Checking to make sure that the passwords match
 		var pass = document.forms["reg"]["password"].value;
