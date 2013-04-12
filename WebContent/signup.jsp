@@ -5,9 +5,13 @@
 <head>
 <script type="text/javascript">
 	
-<%String refer = request.getHeader("referer");
-			if (refer.endsWith("lendinglibrary/makeuser"))
-				out.println("alert(\"Error, the username is already taken.\");");%>
+<%Object bs = session.getAttribute("badsignup");
+			if (bs != null) {
+				Boolean b = (Boolean) bs;
+				if (b)
+					out.println("alert(\"Error, the username is already taken or the listed data is incorrect.\");");
+				session.setAttribute("badsignup", null);
+			}%>
 	function validateForm() {
 		// Checking to make sure that the passwords match
 		var pass = document.forms["reg"]["password"].value;
@@ -31,7 +35,7 @@
 	<form name="reg" method=post action="makeuser"
 		onsubmit="return validateForm()">
 		<p>
-			Choose your username: <input type="text" name="username" size="20"
+			Choose your user name: <input type="text" name="uname" size="20"
 				maxlength="30" required>
 		</p>
 		<p>
@@ -43,8 +47,8 @@
 				size="20" maxlength="50" required>
 		</p>
 		<p>
-			Choose your display name: <input type="text" name="dispname"
-				size="20" maxlength="100" required>
+			Choose your display name: <input type="text" name="name" size="20"
+				maxlength="100" required>
 		</p>
 		<p>
 			What city do you live in: <input type="text" name="city" size="20"

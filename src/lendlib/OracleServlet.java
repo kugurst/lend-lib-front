@@ -2,12 +2,17 @@ package lendlib;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
@@ -31,12 +36,19 @@ public class OracleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = new PrintWriter(response.getOutputStream());
 		try {
 			if (conn == null) {
 				// Create a OracleDataSource instance and set URL
+				OracleDataSource ods = new OracleDataSource();
+				ods.setURL(connect_string);
+				conn = ods.getConnection();
+			}
+			// If the connection is closed, open it again.
+			if (conn.isClosed()) {
 				OracleDataSource ods = new OracleDataSource();
 				ods.setURL(connect_string);
 				conn = ods.getConnection();
@@ -56,12 +68,14 @@ public class OracleServlet extends HttpServlet {
 			pw.println(e.getMessage());
 		}
 		pw.close();
+		MakeUser.closeConn(conn, pw);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

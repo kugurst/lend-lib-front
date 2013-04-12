@@ -23,8 +23,10 @@
 					.executeQuery("select USERID from PERSON P where P.UNAME='"
 							+ name + "' and P.PASSWORD='" + pass + "'");
 			// If there is no result, then this user is not registered
-			if (rset.next())
+			if (rset.next()) {
 				session.setAttribute("sname", name);
+				session.setAttribute("suid", rset.getString("USERID"));
+			}
 			else
 				session.setAttribute("sname", null);
 		} catch (SQLException e) {
