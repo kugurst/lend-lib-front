@@ -9,7 +9,7 @@
 <body>
 
 <p> Enter the title and author for the book you wish to rate: </p> 
-  <form method=post action="rateBook.jsp">
+	<form method=post action="addBookRate.jsp">
 		<p>
 			Title: <input type="text" name="title" size="20"
 				maxlength="50" >
@@ -32,7 +32,10 @@
 	<option value=10>10</option>
 	</select>		
 		<P><P>
-		<input type=submit>
+	<TEXTAREA Name ="comments" COLS=40 ROWS=6>
+Add a review
+	</TEXTAREA>	<P>
+		<input type=submit value = "submit">
 	</form>
 
 </body>
