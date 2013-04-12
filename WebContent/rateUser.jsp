@@ -9,12 +9,12 @@
 <body>
 
 <p> Enter the username of the user you wish to rate: </p> 
-  <form method=post action="rateUser.jsp">
+	<form method=post action="addUserRate.jsp">
 		<p>
 			User: <input type="text" name="title" size="20"
 				maxlength="50" >
 		</p>
-<p> What rating would you like to give this User? </p>
+<p> What rating would you like to give this User?</p>
 	<select name ="Rating">
 	<option value=1>1</option>
 	<option value=2>2</option>
@@ -27,8 +27,10 @@
 	<option value=9>9</option>
 	<option value=10>10</option>
 	</select>		
-		<P><P>
-		<input type=submit>
+		<P><P>	<TEXTAREA Name ="comments" COLS=40 ROWS=6>
+Add a review
+	</TEXTAREA>	<P>
+		<input type=submit value = "submit">
 	</form>
 
 </body>
