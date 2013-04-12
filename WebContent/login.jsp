@@ -7,7 +7,8 @@
 	if (sname != null)
 		response.sendRedirect("home.jsp");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -15,10 +16,15 @@
 </head>
 <body>
 	<form method=post action="home.jsp">
-		What's your name? <input type="text" name="username" size=20><br />
-		Password <input type="password" name="password" size=20> <br />
+		<p>
+			Your username: <input type="text" name="username" size="20"
+				maxlength="30" required>
+		</p>
+		<p>
+			Your password: <input type="password" name="password" size="20"
+				maxlength="50" required>
+		</p>
 		<input type=submit>
 	</form>
 </body>
-
 </html>
