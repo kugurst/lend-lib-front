@@ -46,6 +46,16 @@
 <title>Lib: Home</title>
 </head>
 <body>
+	<%
+		Boolean madeBook = (Boolean) session.getAttribute("badbook");
+		if (madeBook != null) {
+			if(madeBook)
+				out.println("<p>Failed to make the book.</p>");
+			else
+				out.println("<p>Succeeded in making the book.</p>");
+			session.setAttribute("badbook", null);
+		}
+	%>
 	<p>
 		Successfully logged in:
 		<%
@@ -57,8 +67,8 @@
 	%>
 	</p>
 	<p>
-		Click <a href="logout">here</a> to logout.
-		Click <a href="addbook.jsp">here</a> to add a book you own to your collection.
+		Click <a href="logout">here</a> to logout. Click <a href="addbook.jsp">here</a>
+		to add a book you own to your collection.
 	</p>
 </body>
 </html>

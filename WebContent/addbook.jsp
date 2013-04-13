@@ -123,6 +123,7 @@
 			Number of Pages: <input type="text" name="pagenum" size="4"
 				maxlength="4">
 		</p>
+		<input type="submit">
 	</form>
 </body>
 </html>

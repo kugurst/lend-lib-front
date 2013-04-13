@@ -93,6 +93,8 @@ public class BookAdder extends HttpServlet {
 			// check to make sure that there was a result
 			if (result == 0)
 				request.getSession().setAttribute("badbook", true);
+			else
+				request.getSession().setAttribute("badbook", false);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			MakeUser.closeConn(conn, out);
