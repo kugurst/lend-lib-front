@@ -11,8 +11,8 @@
 <p> Enter the username of the user you wish to rate: </p> 
 	<form method=post action="addUserRate.jsp">
 		<p>
-			User: <input type="text" name="title" size="20"
-				maxlength="50" >
+			User: <input type="text" name="user" size="20"
+				maxlength="30" >
 		</p>
 <p> What rating would you like to give this User?</p>
 	<select name ="rating">
