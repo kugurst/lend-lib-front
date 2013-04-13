@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-  pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="oracle.jdbc.pool.OracleDataSource"%>
 <%@ page import="com.sun.rowset.CachedRowSetImpl" %>
@@ -11,7 +11,7 @@
 	String rating = request.getParameter("rating");
 	String comment = request.getParameter("comments");
 	Object suid = session.getAttribute("suid");
-	//int temp = 3; 
+	int temp = 1; 
 	int bookID =0;
 	String ISBN = null;
 	%>
@@ -70,6 +70,7 @@
 	
 catch (SQLException e) {
 		out.print(e.getMessage());
+		response.sendRedirect("dupRate.jsp");
 		if (conn != null) {
 			conn.close();
 		}//if
