@@ -11,10 +11,10 @@
 	String rating = request.getParameter("rating");
 	String comment = request.getParameter("comments");
 	Object suid = session.getAttribute("suid");
-	System.out.println(suid);
-	System.out.println(rating);
-	System.out.println(comment);
-	System.out.println(user);
+	//System.out.println(suid);
+	//System.out.println(rating);
+	//System.out.println(comment);
+	//System.out.println(user);
 	int temp = 5; 
 	int rateeID = 0 ; 
 	%>
