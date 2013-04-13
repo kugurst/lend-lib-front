@@ -9,6 +9,40 @@
 <title>Lib: Pending Trades</title>
 </head>
 <body>
+	<!-- Set the appropriate messages depending on the status -->
+	<%
+		Object baddrop = session.getAttribute("baddrop");
+		if (baddrop != null) {
+			Boolean bd = (Boolean) baddrop;
+			if (bd)
+				out.println("<p>Failed to drop the specified book from the table.</p>");
+			session.setAttribute("baddrop", null);
+		}
+
+		Object badadd = session.getAttribute("badadd");
+		if (badadd != null) {
+			Boolean ba = (Boolean) badadd;
+			if (ba)
+				out.println("<p>Failed to confirm the trade.</p>");
+			session.setAttribute("badadd", null);
+		}
+
+		Object badpenddel = session.getAttribute("badpenddel");
+		if (badpenddel != null) {
+			Boolean bpd = (Boolean) badpenddel;
+			if (bpd)
+				out.println("<p>Failed to delete the pending trade record.</p>");
+			session.setAttribute("badpenddel", null);
+		}
+
+		Object handshake = session.getAttribute("handshake");
+		if (handshake != null) {
+			Boolean hs = (Boolean) handshake;
+			if (hs)
+				out.println("<p>The book trade has been confirmed.</p>");
+			session.setAttribute("handshake", null);
+		}
+	%>
 	<%
 		// Check to see if their credentials align with a user in person	
 		Connection conn = null;

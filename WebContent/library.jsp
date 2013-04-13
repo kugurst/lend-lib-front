@@ -22,7 +22,7 @@
 		if (nologon != null) {
 			Boolean notLoggedIn = (Boolean) nologon;
 			if (notLoggedIn)
-				out.println("<p>You are not logged in. You must be logged in to borrow a book.");
+				out.println("<p>You are not logged in. You must be logged in to borrow a book.</p>");
 			session.setAttribute("nologon", null);
 		}
 
