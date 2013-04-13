@@ -23,8 +23,8 @@
 
 			// The following are the books they own
 			out.println("<h3>Pending Trades for Books You Own:</h3>");
-			String query = "SELECT r2.title,r2.author,r2.isbn,p2.name AS borrower,p2.uname AS \"BORROWER USER NAME\",r2.name AS owner,r2.uname AS \"OWNER USER NAME\" FROM person p2,\r\n"
-					+ "  (SELECT b.title,b.author,b.isbn,r1.borrowerid,r1.uname,r1.name FROM books b,\r\n"
+			String query = "SELECT r2.bookid,r2.title,r2.author,r2.isbn,p2.name AS borrower,p2.uname AS \"BORROWER USER NAME\",r2.name AS owner,r2.uname AS \"OWNER USER NAME\" FROM person p2,\r\n"
+					+ "  (SELECT b.bookid,b.title,b.author,b.isbn,r1.borrowerid,r1.uname,r1.name FROM books b,\r\n"
 					+ "    (SELECT pt.*,p1.name,p1.uname FROM pendingtrade pt, person p1\r\n"
 					+ "      WHERE pt.OWNERID = p1.USERID AND p1.USERID = "
 					+ userid
@@ -48,6 +48,11 @@
 				for (int i = 1; i <= numCol; i++) {
 					out.println("\t\t\t<td>" + rset.getString(i) + "</td>");
 				}
+				// Ask if they want to confirm
+				out.println("\t\t\t<td><a href=\"confirm?bid="
+						+ rset.getString(1) + "&ouname="
+						+ rset.getString(8) + "&buname="
+						+ rset.getString(6) + "\">Confirm?</a></td>");
 				out.println("\t\t</tr>");
 			}
 			out.println("\t</table>");
