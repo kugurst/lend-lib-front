@@ -5,6 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+	function getConfirm() {
+		var conf = confirm("Are you sure you want to borrow this book?");
+		if(!conf)
+			return false;
+	}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Lib: Library</title>
 </head>
@@ -73,10 +80,10 @@
 					}
 				}
 				if (avail)
-					out.println("\t\t<td><a href=\"trade=?b="
-							+ rset.getString(dontPrint) + "&o="
+					out.println("\t\t<td><a href=\"trade?bid="
+							+ rset.getString(dontPrint) + "&ouid="
 							+ rset.getString(dontPrint2)
-							+ "\">Borrow This Book</a></td>");
+							+ "\" onclick=\"return getConfirm()\">Borrow This Book</a></td>");
 				out.println("\t</tr>");
 			}
 			// Print out the end of the table
