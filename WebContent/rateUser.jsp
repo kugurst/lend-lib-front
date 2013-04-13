@@ -15,7 +15,7 @@
 				maxlength="50" >
 		</p>
 <p> What rating would you like to give this User?</p>
-	<select name ="Rating">
+	<select name ="rating">
 	<option value=1>1</option>
 	<option value=2>2</option>
 	<option value=3>3</option>
