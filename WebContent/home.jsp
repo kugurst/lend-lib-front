@@ -94,7 +94,7 @@
 		Click <a href="search.jsp">here</a> to search for books.
 	</p>
 	<p>
-		Click <a href="search.jsp">here</a> to view person ratings.
+		Click <a href="bookperratings.jsp">here</a> to view all person and book ratings.
 	</p>	
 </body>
 </html>

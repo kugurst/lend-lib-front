@@ -18,19 +18,14 @@
 			ods.setURL("jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB");
 			conn = ods.getConnection();
 			Statement stmt = conn.createStatement();
-			// Get the current userid
-			Integer userid = (Integer) session.getAttribute("suid");
 
-			// The following are the books they own
-			out.println("<h3>Pending Trades for Books You Own:</h3>");
-			String query = "SELECT r2.bookid,r2.title,r2.author,r2.isbn,p2.name AS borrower,p2.uname AS \"BORROWER USER NAME\",r2.name AS owner,r2.uname AS \"OWNER USER NAME\" FROM person p2,\r\n"
-					+ "  (SELECT b.bookid,b.title,b.author,b.isbn,r1.borrowerid,r1.uname,r1.name FROM books b,\r\n"
-					+ "    (SELECT pt.*,p1.name,p1.uname FROM pendingtrade pt, person p1\r\n"
-					+ "      WHERE pt.OWNERID = p1.USERID AND p1.USERID = "
-					+ userid
-					+ ") r1\r\n"
-					+ "      WHERE b.bookid = r1.bookid) r2\r\n"
-					+ "      WHERE p2.userid = r2.borrowerid";
+			// The following are all the ratings for people
+			out.println("<h3>People Ratings:</h3>");
+			String query = "select r1.rater,p1.name as ratee,r1.numrating as \"RATING\",r1.txtrating as \"COMMENT\"\r\n" + 
+					"  from person p1, (select p.name AS rater,pr.rateeid,pr.numrating,pr.txtrating\r\n" + 
+					"    from person p, personratings pr\r\n" + 
+					"    where p.userid=pr.raterid) r1\r\n" + 
+					"    where p1.userid=r1.rateeid";
 			rset = stmt.executeQuery(query);
 			// Print out a table
 			out.println("\t<table border=\"1\">");
@@ -48,25 +43,19 @@
 				for (int i = 1; i <= numCol; i++) {
 					out.println("\t\t\t<td>" + rset.getString(i) + "</td>");
 				}
-				// Ask if they want to confirm
-				out.println("\t\t\t<td><a href=\"confirm?bid="
-						+ rset.getString(1) + "&ouname="
-						+ rset.getString(8) + "&buname="
-						+ rset.getString(6) + "\">Confirm?</a></td>");
 				out.println("\t\t</tr>");
 			}
 			out.println("\t</table>");
 			rset.close();
 
-			// The following are the books they borrowed
-			out.println("<h3>Pending Trades for Books You Want to Borrow:</h3>");
-			query = "SELECT r2.title,r2.author,r2.isbn,p2.name AS borrower,p2.uname AS \"BORROWER USER NAME\",r2.name AS owner,r2.uname AS \"OWNER USER NAME\" FROM person p2,\r\n"
-					+ "  (SELECT b.title,b.author,b.isbn,r1.borrowerid,r1.uname,r1.name FROM books b,\r\n"
-					+ "    (SELECT pt.*,p1.name,p1.uname FROM pendingtrade pt, person p1\r\n"
-					+ "      WHERE pt.OWNERID = p1.USERID) r1\r\n"
-					+ "      WHERE b.bookid = r1.bookid) r2\r\n"
-					+ "      WHERE p2.userid = r2.borrowerid AND r2.borrowerid = "
-					+ userid;
+			// The following are all the ratings for books
+			out.println("<h3>Book Ratings:</h3>");
+			query = "select p.name,r1.title,r1.author,r1.isbn,r1.genre,r1.numrating,r1.txtrating\r\n" + 
+					"  from person p,\r\n" + 
+					"  (select br.userid,b.title,b.author,b.isbn,b.genre,br.numrating,br.txtrating\r\n" + 
+					"    from bookratings br, books b\r\n" + 
+					"    where b.bookid=br.bookid) r1\r\n" + 
+					"    where p.userid=r1.userid";
 			rset = stmt.executeQuery(query);
 			// Print out a table
 			out.println("\t<table border=\"1\">");
