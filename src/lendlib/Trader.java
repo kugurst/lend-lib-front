@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(description = "Initiates a trade between two people", urlPatterns = { "/trade" })
 public class Trader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String connect_string = "jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Trader() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

@@ -23,7 +23,7 @@
 		ResultSet rset = null;
 		try {
 			OracleDataSource ods = new OracleDataSource();
-			ods.setURL("jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111g.cs.columbia.edu:1521/ADB");
+			ods.setURL("jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB");
 			conn = ods.getConnection();
 			Statement stmt = conn.createStatement();
 			rset = stmt

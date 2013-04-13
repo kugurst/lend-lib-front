@@ -20,7 +20,7 @@ import oracle.jdbc.pool.OracleDataSource;
 @WebServlet(description = "Adds a book to the library under the current user", urlPatterns = { "/addbook" })
 public class BookAdder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String connect_string = "jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111f.cs.columbia.edu:1521/ADB";
+	private static final String connect_string = "jdbc:oracle:thin:ma2799/EiVQBUGs@//w4111c.cs.columbia.edu:1521/ADB";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
