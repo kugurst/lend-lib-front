@@ -87,6 +87,11 @@
 		Click <a href="listbooks.jsp">here</a> to see the books you own and
 		the books you've borrowed.
 	</p>
-
+	<p>
+		Click <a href="rate.jsp">here</a> to rate people and books.
+	</p>
+	<p>
+		Click <a href="search.jsp">here</a> to search for books.
+	</p>
 </body>
 </html>
