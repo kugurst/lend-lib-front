@@ -3,12 +3,12 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="oracle.jdbc.pool.OracleDataSource"%>
 <!-- Getting the title and the author that was submitted -->
-	<%
+<%
 	String title = request.getParameter("title");
 	String author = request.getParameter("author");
 
 %>
-	 
+
 <%
 if (title != null && author != null){		
 		Connection conn = null;
@@ -92,33 +92,31 @@ Out.println("error you must enter either a title or author");
 <title>Find a Book</title>
 </head>
 <body>
-	out.println(title); 
-	out.println(author);
-	
-	
-<TABLE cellpadding="15" border="1" style="background-color: #ffffcc;">
-<% 
-while (result.next()) {
-%>
-<TR>
-<TD><%= result.getInt(1)%></TD>
-<TD><%=result.getInt(2)%></TD>
-<TD><%=result.getInt(3)%></TD>
-<TD><%=result.getString(4)%></TD>
-<TD><%=result.getString(5)%></TD>
-<TD><%=result.getString(6)%></TD>
-<TD><%=result.getInt(7)%></TD>
-<TD><%=result.getInt(8)%></TD>
-<TD><%=result.getInt(9)%></TD>
-<TD><%=result.getInt(10)%></TD>
-</TR>
- } 		
-<%
+	out.println(title); out.println(author);
+
+
+	<TABLE cellpadding="15" border="1" style="background-color: #ffffcc;">
+		<% 
+while (result.next()) {out.println("
+		<TR>
+			<TD><%= result.getInt(1)%></TD>
+			<TD><%=result.getInt(2)%></TD>
+			<TD><%=result.getInt(3)%></TD>
+			<TD><%=result.getString(4)%></TD>
+			<TD><%=result.getString(5)%></TD>
+			<TD><%=result.getString(6)%></TD>
+			<TD><%=result.getInt(7)%></TD>
+			<TD><%=result.getInt(8)%></TD>
+			<TD><%=result.getInt(9)%></TD>
+			<TD><%=result.getInt(10)%></TD>
+		</TR>");
+		}
+		<%
  result.close(); 
  stmt.close(); 
  conn.close();							
 %>
-</TABLE>	
+	</TABLE>
 </body>
 </html>
 
