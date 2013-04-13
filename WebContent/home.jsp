@@ -80,8 +80,13 @@
 		Click <a href="pendingtrade.jsp">here</a> to view any pending trades.
 	</p>
 	<p>
-		Click <a href="returnbooks.jsp">here</a> to return any books you've borrowed.
+		Click <a href="returnbooks.jsp">here</a> to return any books you've
+		borrowed.
 	</p>
-	
+	<p>
+		Click <a href="listbooks.jsp">here</a> to see the books you own and
+		the books you've borrowed.
+	</p>
+
 </body>
 </html>
