@@ -93,5 +93,8 @@
 	<p>
 		Click <a href="search.jsp">here</a> to search for books.
 	</p>
+	<p>
+		Click <a href="search.jsp">here</a> to view person ratings.
+	</p>	
 </body>
 </html>
