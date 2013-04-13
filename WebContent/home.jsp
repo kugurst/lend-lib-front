@@ -49,7 +49,7 @@
 	<%
 		Boolean madeBook = (Boolean) session.getAttribute("badbook");
 		if (madeBook != null) {
-			if(madeBook)
+			if (madeBook)
 				out.println("<p>Failed to make the book.</p>");
 			else
 				out.println("<p>Succeeded in making the book.</p>");
@@ -67,8 +67,14 @@
 	%>
 	</p>
 	<p>
-		Click <a href="logout">here</a> to logout. Click <a href="addbook.jsp">here</a>
-		to add a book you own to your collection.
+		Click <a href="logout">here</a> to logout.
+	</p>
+	<p>
+		Click <a href="addbook.jsp">here</a> to add a book you own to your
+		collection.
+	</p>
+	<p>
+		Click <a href="library.jsp">here</a> to view the library.
 	</p>
 </body>
 </html>
