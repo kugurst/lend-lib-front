@@ -13,5 +13,6 @@
 	<p>
 		To rate a user <a href="rateUser.jsp">click here</a>
 	</p>
+	<p>     Please note you can only make one rating for any user or book. Attempts at rating the same book or user more than once will not be saved.</p>
 </body>
 </html>
