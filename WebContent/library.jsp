@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	function getConfirm() {
 		var conf = confirm("Are you sure you want to borrow this book?");
-		if(!conf)
+		if (!conf)
 			return false;
 	}
 </script>
@@ -16,6 +16,32 @@
 <title>Lib: Library</title>
 </head>
 <body>
+	<!-- Inform the user that they are not logged in or the book is already pending trade -->
+	<%
+		Object nologon = session.getAttribute("nologon");
+		if (nologon != null) {
+			Boolean notLoggedIn = (Boolean) nologon;
+			if (notLoggedIn)
+				out.println("<p>You are not logged in. You must be logged in to borrow a book.");
+			session.setAttribute("nologon", null);
+		}
+
+		Object alreadyPending = session.getAttribute("alreadyPending");
+		if (alreadyPending != null) {
+			Boolean pending = (Boolean) alreadyPending;
+			if (pending)
+				out.println("<p>The requested book is already in a pending trade.</p>");
+			session.setAttribute("alreadyPending", null);
+		}
+
+		Object tradeSet = session.getAttribute("tradeSet");
+		if (tradeSet != null) {
+			Boolean trading = (Boolean) tradeSet;
+			if (trading)
+				out.println("<p>The owner has been informed. You two will discuss when you will meet and trade the book.</p>");
+			session.setAttribute("tradeSet", null);
+		}
+	%>
 	<!-- Make a connection -->
 	<%
 		// Connect to the database to get the library	
@@ -81,7 +107,8 @@
 				}
 				if (avail)
 					out.println("\t\t<td><a href=\"trade?bid="
-							+ rset.getString(dontPrint) + "&ouid="
+							+ rset.getString(dontPrint)
+							+ "&ouid="
 							+ rset.getString(dontPrint2)
 							+ "\" onclick=\"return getConfirm()\">Borrow This Book</a></td>");
 				out.println("\t</tr>");

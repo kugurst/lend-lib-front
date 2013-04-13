@@ -76,5 +76,8 @@
 	<p>
 		Click <a href="library.jsp">here</a> to view the library.
 	</p>
+	<p>
+		Click <a href="pendingtrade.jsp">here</a> to view any pending trades.
+	</p>
 </body>
 </html>
