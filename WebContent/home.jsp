@@ -58,6 +58,7 @@
 	</p>
 	<p>
 		Click <a href="logout">here</a> to logout.
+		Click <a href="addbook.jsp">here</a> to add a book you own to your collection.
 	</p>
 </body>
 </html>

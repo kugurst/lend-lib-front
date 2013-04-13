@@ -9,7 +9,7 @@
 			if (bs != null) {
 				Boolean b = (Boolean) bs;
 				if (b)
-					out.println("alert(\"Error, the username is already taken or the listed data is incorrect.\");");
+					out.println("alert(\"Error, the username is already taken.\");");
 				session.setAttribute("badsignup", null);
 			}%>
 	function validateForm() {
