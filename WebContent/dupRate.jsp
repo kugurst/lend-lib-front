@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-  pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +8,9 @@
 </head>
 <body>
 	<p>
-	Sorry, you have already rated that! 
+	Sorry, an error as occurred. Your rating was not saved. 
 	<P>
-	You may only enter one rating for a book or user. <P>
+	 <P>
 		To rate a book <a href="rateBook.jsp">click here</a>.
 	</p>
 	<p>
