@@ -105,7 +105,10 @@
 						avail = true;
 					}
 				}
-				if (avail)
+				if (avail
+						&& Integer.parseInt(rset.getString(dontPrint2)) != Integer
+								.parseInt(session.getAttribute("suid")
+										.toString()))
 					out.println("\t\t<td><a href=\"trade?bid="
 							+ rset.getString(dontPrint)
 							+ "&ouid="

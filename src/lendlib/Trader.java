@@ -66,7 +66,6 @@ public class Trader extends HttpServlet {
 				+ request.getSession().getAttribute("suid")
 				+ ", "
 				+ request.getParameter("bid") + ")";
-		System.out.println(query);
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(query);
